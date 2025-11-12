@@ -1,8 +1,6 @@
-using System.Numerics;
 using Photon.Pun;
 using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
-using Vector3 = UnityEngine.Vector3;
+
 
 public class Woman : MonoBehaviourPun
 {
@@ -10,12 +8,12 @@ public class Woman : MonoBehaviourPun
     public float rotSpeed = 1f;
     
     private Animator animator;
-    private CharacterController characterController;
+   
     
     void Start()
     {
         animator = GetComponent<Animator>();
-        characterController = GetComponent<CharacterController>();
+       
        
     }
 
