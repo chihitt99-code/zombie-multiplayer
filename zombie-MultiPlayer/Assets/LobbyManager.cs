@@ -50,7 +50,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
        Debug.Log("OnJoinedRoom");
        
-       //Debug.Log(PhotonNetwork.);
+       Debug.Log(PhotonNetwork.CurrentRoom.Name);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
