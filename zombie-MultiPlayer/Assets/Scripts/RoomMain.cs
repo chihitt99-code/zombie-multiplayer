@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomMain : MonoBehaviour
@@ -63,6 +64,9 @@ public class RoomMain : MonoBehaviour
         {
             Debug.Log($"<color=lime>{p.NickName}</color>");
         }
+        //클라이언트일 경우 이곳에서 UIPlayerItem을 만든다
+        uiPlayerList.Init(playerList);
+
 
 
     }
@@ -73,10 +77,14 @@ public class RoomMain : MonoBehaviour
        playerList.Add(newPlayer);
        
        
+       //마스터일 경우 이곳에서 PlayerItem을 만든다
+     
        foreach (var p in playerList)
        {
            Debug.Log($"<color=yellow>{p.NickName}</color>");
-       }
+       } 
+       //마스터일 경우 이곳에서 UIPlayerItem을 만든다
+       uiPlayerList.Init(playerList);
 
     }
 
