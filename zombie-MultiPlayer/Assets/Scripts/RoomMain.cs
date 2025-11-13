@@ -61,7 +61,7 @@ public class RoomMain : MonoBehaviour
         playerList.AddRange(sorted);
         foreach (var p in playerList)
         {
-            Debug.Log($"<color=lim>{p.NickName}</color>");
+            Debug.Log($"<color=lime>{p.NickName}</color>");
         }
 
 
