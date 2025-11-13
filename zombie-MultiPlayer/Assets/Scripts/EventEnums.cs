@@ -7,7 +7,8 @@ public class EventEnums
         OnConnectedToMaster ,
         OnJoinedLobby,
         OnRoomListUpdate,
-        OnJoinedRoom
+        OnJoinedRoom,
+        OnPlayerEnteredRoom
     }
 }
     
