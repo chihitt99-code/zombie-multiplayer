@@ -42,6 +42,28 @@ public class RoomMain : MonoBehaviour
         {
             Debug.Log($"<color=yellow>{p.NickName}</color>");
         }
+        
+        //lim , hong 순서 바꾸기
+        playerList.Clear();
+        Player[]sorted = new Player[PhotonNetwork.PlayerList.Length];
+        PhotonNetwork.PlayerList.CopyTo(sorted, 0);
+
+        Array.Sort(sorted, (a, b) =>
+        {
+            //a가 b보다 앞에 와야 한다면 음수 
+            if (a == PhotonNetwork.MasterClient && b != PhotonNetwork.MasterClient) return -1;
+            //뒤에 와야하면 양수
+            if (b == PhotonNetwork.MasterClient && a != PhotonNetwork.MasterClient) return 1;
+            //같으면 0
+            return a.ActorNumber.CompareTo(b.ActorNumber);
+        });
+        
+        playerList.AddRange(sorted);
+        foreach (var p in playerList)
+        {
+            Debug.Log($"<color=lim>{p.NickName}</color>");
+        }
+
 
     }
     
