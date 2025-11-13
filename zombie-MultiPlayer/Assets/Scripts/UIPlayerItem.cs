@@ -9,14 +9,16 @@ public class UIPlayerItem : MonoBehaviour
     public void Setup(string nickname, bool isMasterClient)
     {
         nicknameText.text = nickname;
-        if (isMasterClient)
+        
+        if (!isMasterClient)
         {
-            isMasterClientText.text = "Master";
+            isMasterClientText.text = "Client";
             
         }
         else
         {
-            isMasterClientText.text = "Client";
+            isMasterClientText.text = "Master";
+            
         }
     }
 }

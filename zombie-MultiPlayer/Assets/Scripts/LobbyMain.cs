@@ -21,6 +21,7 @@ public class LobbyMain : MonoBehaviour
 
         createRoomButton.onClick.AddListener(() =>
         {
+            Debug.Log("Create Room");
             Pun2Manager.instance.CreateRoom();
         });
 

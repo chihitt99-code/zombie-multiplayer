@@ -4,10 +4,12 @@ using Photon.Pun;
 using Photon.Realtime;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoomMain : MonoBehaviour
 {
     public UIPlayerList uiPlayerList;
+    public Button readyButton;
     
     private List<Player> playerList = new List<Player>();
 
@@ -20,6 +22,8 @@ public class RoomMain : MonoBehaviour
         EventDispatcher.instance.AddEventHandler(
             (int)EventEnums.EventType.OnJoinedRoom,
             OnJoinedRoomEvent);
+        
+    
  
         
     }
@@ -93,8 +97,8 @@ public class RoomMain : MonoBehaviour
         Debug.Log(PhotonNetwork.LocalPlayer);
         
         playerList.Add(PhotonNetwork.LocalPlayer);
-        
+       
         
     }
- 
+    
 }

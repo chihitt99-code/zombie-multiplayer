@@ -198,4 +198,6 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
     }
+
+    
 }
