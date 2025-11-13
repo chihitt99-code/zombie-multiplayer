@@ -21,6 +21,8 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         }
 
         instance = this;
+        PhotonNetwork.AutomaticallySyncScene = true; //자동으로 씬을 동기화 한다
+        
         DontDestroyOnLoad(gameObject);
     }
 
