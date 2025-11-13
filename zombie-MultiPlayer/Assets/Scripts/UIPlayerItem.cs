@@ -11,12 +11,12 @@ public class UIPlayerItem : MonoBehaviour
         nicknameText.text = nickname;
         if (isMasterClient)
         {
-            isMasterClientText.text = "방장";
+            isMasterClientText.text = "Master";
             
         }
         else
         {
-            isMasterClientText.text = "플레이어";
+            isMasterClientText.text = "Client";
         }
     }
 }
