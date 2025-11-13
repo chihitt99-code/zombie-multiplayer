@@ -1,5 +1,6 @@
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LobbyMain : MonoBehaviour
@@ -101,6 +102,8 @@ public class LobbyMain : MonoBehaviour
         leaveRoombutton.gameObject.SetActive(true);
         uiRoomScrollview.Hide();
         createRoomButton.gameObject.SetActive(false);
+
+      
     }
     
     private void OnDestroy() // 게임오브젝트가 제거됐을때 (로비메인이 붙은 게임오브젝트 ) 더이상 이벤트를 받지 않겠다  -> 오류나기때문ㅇ ㅔ람다에 있던애들을 매서드로 만들어줐음
