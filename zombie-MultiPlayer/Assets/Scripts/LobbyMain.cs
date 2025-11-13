@@ -1,35 +1,34 @@
-using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class LobbyMain : MonoBehaviour
 {
     public UINicknameView nicknameView;
     public UILoading uiLoading;
-    public UIScrollView uiScrollView;
-
+    public UIRoomScrollview uiRoomScrollview;
     public Button createRoomButton;
-    public Button leaveRoomButton;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Button leaveRoombutton;
+
     void Start()
     {
-        uiScrollView.Init();
+        uiRoomScrollview.Init();
         AddEventListeners();
-        
+
+        // 마스터 서버 접속 시작
         ConnectToMasterServer();
-       
+
         createRoomButton.onClick.AddListener(() =>
         {
             Pun2Manager.instance.CreateRoom();
         });
 
-        leaveRoomButton.onClick.AddListener(() =>
+        leaveRoombutton.onClick.AddListener(() =>
         {
             Pun2Manager.instance.LeaveRoom();
         });
 
-        
+        // 닉네임 입력 완료 시
         nicknameView.onClickSubmit = (nickname) =>
         {
             if (string.IsNullOrEmpty(nickname))
@@ -38,58 +37,63 @@ public class LobbyMain : MonoBehaviour
             }
             else
             {
-                Debug.Log($"nickname : {nickname}");
+                Debug.Log($"nickname: {nickname}");
                 Pun2Manager.instance.SetNickname(nickname);
-                uiScrollView.Show();
+
+                uiRoomScrollview.Show();
                 createRoomButton.gameObject.SetActive(true);
                 nicknameView.gameObject.SetActive(false);
-                
             }
         };
     }
-    
+
     private void ConnectToMasterServer()
     {
         uiLoading.Show();
-        Pun2Manager.instance.Init();
-        
+        Pun2Manager.instance.Init();   // 마스터 서버 접속
     }
+
     private void AddEventListeners()
     {
-        
-        EventDispatcher.instance.AddEventHandler((int)EventEnums.EventType.OnConnectedToMaster, (eventType) =>
-        {
-            Debug.Log($"AddEventListeners:{(EventEnums.EventType)eventType}");
-            uiLoading.Hide();
-            nicknameView.gameObject.SetActive(string.IsNullOrEmpty(PhotonNetwork.NickName));
-        });
-        
-        EventDispatcher.instance.AddEventHandler((int)EventEnums.EventType.OnJoinedLobby, (eventType) =>
-        {
-            Debug.Log($"AddEventListeners:{(EventEnums.EventType)eventType}");
-            uiLoading.Hide();
-            
-            if(!string.IsNullOrEmpty(PhotonNetwork.NickName))
+        // 마스터 서버 접속 완료
+        EventDispatcher.instance.AddEventHandler(
+            (int)EventEnums.EventType.OnConnectedToMaster,
+            (short eventType) =>
             {
-                uiScrollView.Show();
-                createRoomButton.gameObject.SetActive(true);
-                leaveRoomButton.gameObject.SetActive(false);
-            }
-            
-        });
-        
-        EventDispatcher.instance.AddEventHandler((int)EventEnums.EventType.OnJoinedRoom, (eventType) =>
-        {
-            Debug.Log($"AddEventListeners:{(EventEnums.EventType)eventType}");
-            leaveRoomButton.gameObject.SetActive(true);
-            
-            uiScrollView.Hide();
-            createRoomButton.gameObject.SetActive(false);
-        });
-        
+                Debug.Log($"AddEventListeners: {(EventEnums.EventType)eventType}");
+                uiLoading.Hide();
 
+                // 닉네임 없으면 닉네임 입력창 켜기
+                nicknameView.gameObject.SetActive(string.IsNullOrEmpty(PhotonNetwork.NickName));
+            });
+
+        // 로비 입장 완료
+        EventDispatcher.instance.AddEventHandler(
+            (int)EventEnums.EventType.OnJoinedLobby,
+            (short eventType) =>
+            {
+                Debug.Log($"AddEventListeners: {(EventEnums.EventType)eventType}");
+                uiLoading.Hide();
+
+                if (!string.IsNullOrEmpty(PhotonNetwork.NickName))
+                {
+                    uiRoomScrollview.Show();
+                    createRoomButton.gameObject.SetActive(true);
+                    leaveRoombutton.gameObject.SetActive(false);
+                }
+            });
+
+        // 방 입장 완료
+        EventDispatcher.instance.AddEventHandler(
+            (int)EventEnums.EventType.OnJoinedRoom,
+            (short eventType) =>
+            {
+                Debug.Log($"AddEventListeners: {(EventEnums.EventType)eventType}");
+
+                leaveRoombutton.gameObject.SetActive(true);
+
+                uiRoomScrollview.Hide();
+                createRoomButton.gameObject.SetActive(false);
+            });
     }
-    
-    
-
 }

@@ -1693,9 +1693,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a72f3379c6a3eb248a2e7fab2bc9a3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thereIsNoRoomGo: {fileID: 877875499}
-  content: {fileID: 1675413515}
-  uiRoomCellViewPrefab: {fileID: 4021305359392973849, guid: cdb290c2e822b6f44b1abb6d4997aab4, type: 3}
+  contentParent: {fileID: 1675413515}
+  roomItemPrefab: {fileID: 4021305359392973849, guid: cdb290c2e822b6f44b1abb6d4997aab4, type: 3}
 --- !u!1 &1463662584
 GameObject:
   m_ObjectHideFlags: 0
@@ -2532,9 +2531,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nicknameView: {fileID: 342621566}
   uiLoading: {fileID: 1701567615}
-  uiScrollView: {fileID: 1450939741}
+  uiRoomScrollview: {fileID: 1450939741}
   createRoomButton: {fileID: 1579802406}
-  leaveRoomButton: {fileID: 1463662585}
+  leaveRoombutton: {fileID: 1463662585}
 --- !u!4 &1779729983
 Transform:
   m_ObjectHideFlags: 0
