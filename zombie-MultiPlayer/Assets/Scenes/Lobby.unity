@@ -917,7 +917,7 @@ GameObject:
   - component: {fileID: 877875502}
   - component: {fileID: 877875501}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: There is no room.
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2745,7 +2745,7 @@ SceneRoots:
   - {fileID: 1577815804}
   - {fileID: 354544844}
   - {fileID: 1394722670}
-  - {fileID: 1701567614}
   - {fileID: 124460846}
   - {fileID: 1335845520}
   - {fileID: 1779729983}
+  - {fileID: 1701567614}
