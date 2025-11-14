@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -52,7 +52,7 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         Debug.Log("마스터서버에 접속 했습니다.");
 
         EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnConnectedToMaster);
-
+ 
         // 로비 입장
         JoinLobby();
     }

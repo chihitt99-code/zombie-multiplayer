@@ -61,7 +61,7 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
             else
             {
                 readyState = ReadyState.Start;
-                startButton.interactable = false;
+                
                 UpdateReadyButtonByState();
                 photonView.RPC("CancelReady",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
             }
@@ -222,7 +222,7 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
     {
         var player = PhotonNetwork.CurrentRoom.Players[actorNumber];
         Debug.Log($"{player.NickName}이 준비 했습니다.");
-        startButton.interactable = true;
+       
     }
 
     [PunRPC]
