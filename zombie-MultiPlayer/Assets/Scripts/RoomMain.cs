@@ -53,35 +53,21 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
                 UpdateReadyButtonByState();
                 photonView.RPC("Ready",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
                 //PhotonView.RPC (string methodName, PhotonTargets targets, params object[] parameters)
+                //이때는 방장의 스타트 버튼이 눌림
 
 
             }
             else
             {
                 readyState = ReadyState.Start;
+                startButton.interactable = false;
                 UpdateReadyButtonByState();
                 photonView.RPC("CancelReady",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
+                //이때는 방장의  스타트 버튼이 안눌림
             }
         });
         
-        startButton.onClick.AddListener(() =>
-        {
-          
-            
-            //만약에 아더플레이어들의 스테이트가 컴플리트라면
-            if (readyState == ReadyState.Complete)
-            {
-                //스타트버튼을 누를수 있고
-                Debug.Log("게임시작");
-            }
-            else
-            {
-                startButton.interactable = false;
-            }
-            //스테이트가 스타트라면
-            //버튼인스펙터가 비활성화 된다 
-        });
-    
+       
  
         
     }
@@ -190,15 +176,17 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
     
     private void UpdateReadyAndStartButton()
     {
-        HideReadyAndStartButton();
+        HideReadyAndStartButton(); //전부 비활성화 시킨 상태에서
         
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
+            //나 (마스터) 면 스타트버튼만 보이게
             readyButton.gameObject.SetActive(false);
             startButton.gameObject.SetActive(true);
         }
         else
         {
+            //other 이면 레디만 보이게
             readyButton.gameObject.SetActive(true);
             startButton.gameObject.SetActive(false);
         }
