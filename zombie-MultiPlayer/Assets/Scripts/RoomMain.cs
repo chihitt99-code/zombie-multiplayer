@@ -41,6 +41,8 @@ public class RoomMain : MonoBehaviour
     private void OnPlayerLeftRoomEvent(short eventType)
     {
         uiPlayerList.UpdateUI( PhotonNetwork.CurrentRoom.Players.Values.ToList());
+        
+        UpdateReadyAndStartButton();
     }
 
 
