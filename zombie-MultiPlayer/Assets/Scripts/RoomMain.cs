@@ -25,6 +25,7 @@ public class RoomMain : MonoBehaviour
         
         leaveButton.onClick.AddListener(() =>
         {
+            PhotonNetwork.LoadLevel("Lobby");
             Pun2Manager.instance.LeaveRoom();
         });
         
