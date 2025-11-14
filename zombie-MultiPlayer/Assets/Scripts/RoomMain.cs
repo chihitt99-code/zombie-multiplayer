@@ -59,7 +59,6 @@ public class RoomMain : MonoBehaviour
             
         }
         
-        
         foreach (var p in playerList)
         {
             Debug.Log($"<color=yellow>{p.NickName}</color>");
@@ -117,6 +116,12 @@ public class RoomMain : MonoBehaviour
         
         playerList.Add(PhotonNetwork.LocalPlayer);
         UpdateReadyAndStartButton();
+
+        if (PhotonNetwork.IsMasterClient) //내가 마스터 클라이언트라면
+        {
+            //내 playerItem 을만든다
+            uiPlayerList.UpdateUI(PhotonNetwork.CurrentRoom.Players.Values.ToList());
+        }
 
     }
     
