@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pun2Manager : MonoBehaviourPunCallbacks
 {
@@ -131,11 +132,7 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         //     PhotonNetwork.LoadLevel("Main");
         // }
 
-        if (PhotonNetwork.IsMasterClient) //애가 방을만든 사람이라면 ? 방장인지 아닌지 알수있는 법 ( 트루면 방장 아니면 방장아님 )
-        {
-            PhotonNetwork.LoadLevel("Room");
-        }
-
+   
         EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnJoinedRoom);
     }
 
@@ -179,8 +176,8 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         Debug.Log($"[{PhotonNetwork.NickName}]님이 방을 나갔습니다.");
         Debug.Log($"PhotonNetwork.InLobby: {PhotonNetwork.InLobby}");
 
-        // 방 나간 뒤 로비로 자동 복귀
-        PhotonNetwork.JoinLobby();
+        PhotonNetwork.LoadLevel("Lobby");
+        //SceneManager.LoadScene("Lobby");
     }
 
     // UI에서 호출용 메서드들

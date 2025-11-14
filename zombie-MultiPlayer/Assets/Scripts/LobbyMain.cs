@@ -104,6 +104,11 @@ public class LobbyMain : MonoBehaviour
         uiRoomScrollview.Hide();
         createRoomButton.gameObject.SetActive(false);
 
+        if (PhotonNetwork.IsMasterClient) //애가 방을만든 사람이라면 ? 방장인지 아닌지 알수있는 법 ( 트루면 방장 아니면 방장아님 )
+        {
+            PhotonNetwork.LoadLevel("Room");
+        }
+
       
     }
     

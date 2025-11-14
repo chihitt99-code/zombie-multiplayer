@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +9,7 @@ public class RoomMain : MonoBehaviour
 {
     public UIPlayerList uiPlayerList;
     public Button readyButton;
+    public Button leaveButton;
     
     private List<Player> playerList = new List<Player>();
 
@@ -22,6 +22,11 @@ public class RoomMain : MonoBehaviour
         EventDispatcher.instance.AddEventHandler(
             (int)EventEnums.EventType.OnJoinedRoom,
             OnJoinedRoomEvent);
+        
+        leaveButton.onClick.AddListener(() =>
+        {
+            Pun2Manager.instance.LeaveRoom();
+        });
         
     
  
@@ -100,5 +105,10 @@ public class RoomMain : MonoBehaviour
        
         
     }
-    
+
+    private void OnDestroy()
+    {
+       EventDispatcher.instance.RemoveEventHandler((int)EventEnums.EventType.OnPlayerEnteredRoom);
+       EventDispatcher.instance.RemoveEventHandler((int)EventEnums.EventType.OnJoinedRoom);
+    }
 }
