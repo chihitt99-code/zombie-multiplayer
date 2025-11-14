@@ -153,6 +153,7 @@ MonoBehaviour:
   readyButton: {fileID: 383412285}
   startButton: {fileID: 1225800802}
   leaveButton: {fileID: 1605944274}
+  readyButtonText: {fileID: 1331462878}
 --- !u!4 &33725327
 Transform:
   m_ObjectHideFlags: 0
