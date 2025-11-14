@@ -10,6 +10,7 @@ public class RoomMain : MonoBehaviour
 {
     public UIPlayerList uiPlayerList;
     public Button readyButton;
+    public Button startButton;
     public Button leaveButton;
     
     private List<Player> playerList = new List<Player>();
@@ -111,8 +112,32 @@ public class RoomMain : MonoBehaviour
         Debug.Log(PhotonNetwork.LocalPlayer);
         
         playerList.Add(PhotonNetwork.LocalPlayer);
-       
+        UpdateReadyAndStartButton();
+
+    }
+    
+    private void UpdateReadyAndStartButton()
+    {
+        HideReadyAndStartButton();
         
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            readyButton.gameObject.SetActive(false);
+            startButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            readyButton.gameObject.SetActive(true);
+            startButton.gameObject.SetActive(false);
+        }
+
+    }
+  
+
+    public void HideReadyAndStartButton()
+    {
+        readyButton.gameObject.SetActive(false);
+        startButton.gameObject.SetActive(false);
     }
 
     private void OnDestroy()

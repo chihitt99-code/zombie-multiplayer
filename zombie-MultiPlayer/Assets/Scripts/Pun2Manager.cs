@@ -127,14 +127,6 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
 
         // 내 입장 메시지
         Debug.Log($"[{PhotonNetwork.NickName}]님이 입장 했습니다.");
-
-        // 여기서 씬 전환하고 싶으면 (마스터만 씬 전환)
-        // if (PhotonNetwork.IsMasterClient)
-        // {
-        //     PhotonNetwork.LoadLevel("Main");
-        // }
-
-   
         EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnJoinedRoom);
     }
 
