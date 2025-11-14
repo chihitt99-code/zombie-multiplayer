@@ -52,6 +52,9 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
                 readyState = ReadyState.Complete;
                 UpdateReadyButtonByState();
                 photonView.RPC("Ready",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
+                //PhotonView.RPC (string methodName, PhotonTargets targets, params object[] parameters)
+
+
             }
             else
             {
@@ -59,6 +62,24 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
                 UpdateReadyButtonByState();
                 photonView.RPC("CancelReady",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
             }
+        });
+        
+        startButton.onClick.AddListener(() =>
+        {
+          
+            
+            //만약에 아더플레이어들의 스테이트가 컴플리트라면
+            if (readyState == ReadyState.Complete)
+            {
+                //스타트버튼을 누를수 있고
+                Debug.Log("게임시작");
+            }
+            else
+            {
+                startButton.interactable = false;
+            }
+            //스테이트가 스타트라면
+            //버튼인스펙터가 비활성화 된다 
         });
     
  
