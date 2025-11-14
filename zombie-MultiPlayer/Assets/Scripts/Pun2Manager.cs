@@ -166,6 +166,11 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         Debug.Log($"OnCreateRoomFailed : {returnCode}, {message}");
     }
 
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        Debug.Log($"새로운 방장으로 임명되었습니다 : {newMasterClient.NickName}");
+    }
+
     // 다른 플레이어가 방을 나갔을 때
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
