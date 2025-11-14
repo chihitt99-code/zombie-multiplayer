@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 photon 뷰를 바로 쓸수있음
 {
+
+    public enum ReadyState
+    {
+        Start, // 준비시작
+        Complete // 준비완료
+    }
+    
+    private ReadyState readyState = ReadyState.Start;
+    
     public UIPlayerList uiPlayerList;
     public Button readyButton;
     public Button startButton;
     public Button leaveButton;
+    public TMP_Text readyButtonText;
     
     private List<Player> playerList = new List<Player>();
 
@@ -35,7 +46,19 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
         
         readyButton.onClick.AddListener(() =>
         {
-            photonView.RPC("Ready",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
+            
+            if (readyState == ReadyState.Start)
+            {
+                readyState = ReadyState.Complete;
+                UpdateReadyButtonByState();
+                photonView.RPC("Ready",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
+            }
+            else
+            {
+                readyState = ReadyState.Start;
+                UpdateReadyButtonByState();
+                photonView.RPC("cancelReady",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
+            }
         });
     
  
@@ -121,12 +144,27 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
         playerList.Add(PhotonNetwork.LocalPlayer);
         UpdateReadyAndStartButton();
 
+        UpdateReadyButtonByState(); //상태에 따라서 레디버튼을 업데이트한다 라는 메서드
+
         if (PhotonNetwork.IsMasterClient) //내가 마스터 클라이언트라면
         {
             //내 playerItem 을만든다
             uiPlayerList.UpdateUI(PhotonNetwork.CurrentRoom.Players.Values.ToList());
         }
 
+    }
+
+    private void UpdateReadyButtonByState()
+    {
+        switch(readyState)
+        {
+            case ReadyState.Start:
+                readyButtonText.text = "Ready Start";
+                break;
+            case ReadyState.Complete:
+                readyButtonText.text = "Ready Complete";
+                break;
+        }
     }
     
     private void UpdateReadyAndStartButton()
@@ -167,11 +205,18 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
        EventDispatcher.instance.RemoveEventHandler((int)EventEnums.EventType.OnPlayerEnteredRoom);
        EventDispatcher.instance.RemoveEventHandler((int)EventEnums.EventType.OnJoinedRoom);
     }
-
+    
     [PunRPC]
     public void Ready(int actorNumber)
     {
         var player = PhotonNetwork.CurrentRoom.Players[actorNumber];
-        Debug.Log($"{player.NickName}이 준비했습니다.");
+        Debug.Log($"{player.NickName}이 준비 했습니다.");
+    }
+
+    [PunRPC]
+    public void CancelReady(int actorNumber)
+    {
+        var player = PhotonNetwork.CurrentRoom.Players[actorNumber];
+        Debug.Log($"{player.NickName}이 준비를 취소했습니다.");
     }
 }
