@@ -190,7 +190,7 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
             //other 이면 레디만 보이게
             readyButton.gameObject.SetActive(true);
             startButton.gameObject.SetActive(false);
-            startButton.interactable = true;
+            
         }
 
         //방에 한명이상 있어야되고 마스터를 제외한 모든 플레이어가 레디버튼을 눌러야만
@@ -222,6 +222,7 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
     {
         var player = PhotonNetwork.CurrentRoom.Players[actorNumber];
         Debug.Log($"{player.NickName}이 준비 했습니다.");
+        startButton.interactable = true;
     }
 
     [PunRPC]
