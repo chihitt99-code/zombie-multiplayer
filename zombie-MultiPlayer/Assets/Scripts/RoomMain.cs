@@ -54,6 +54,7 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
                 photonView.RPC("Ready",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
                 //PhotonView.RPC (string methodName, PhotonTargets targets, params object[] parameters)
                 //이때는 방장의 스타트 버튼이 눌림
+               
 
 
             }
@@ -63,7 +64,6 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
                 startButton.interactable = false;
                 UpdateReadyButtonByState();
                 photonView.RPC("CancelReady",RpcTarget.MasterClient,PhotonNetwork.LocalPlayer.ActorNumber);
-                //이때는 방장의  스타트 버튼이 안눌림
             }
         });
         
@@ -183,12 +183,14 @@ public class RoomMain : MonoBehaviourPun //MonoBehaviourPun을 상속받으면 p
             //나 (마스터) 면 스타트버튼만 보이게
             readyButton.gameObject.SetActive(false);
             startButton.gameObject.SetActive(true);
+            startButton.interactable = false;
         }
         else
         {
             //other 이면 레디만 보이게
             readyButton.gameObject.SetActive(true);
             startButton.gameObject.SetActive(false);
+            startButton.interactable = true;
         }
 
         //방에 한명이상 있어야되고 마스터를 제외한 모든 플레이어가 레디버튼을 눌러야만
