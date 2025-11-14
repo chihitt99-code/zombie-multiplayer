@@ -133,6 +133,12 @@ public class RoomMain : MonoBehaviour
             startButton.gameObject.SetActive(false);
         }
 
+        // 내가 방장이고 ~ 플레이어가 나혼자라면
+        if (PhotonNetwork.LocalPlayer.IsMasterClient && PhotonNetwork.PlayerList.Length <= 1)
+        {
+            startButton.interactable = false;
+        }
+
     }
   
 
