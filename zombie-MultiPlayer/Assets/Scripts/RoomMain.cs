@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class RoomMain : MonoBehaviour
             (int)EventEnums.EventType.OnJoinedRoom,
             OnJoinedRoomEvent);
         
+        EventDispatcher.instance.AddEventHandler((int)EventEnums.EventType.OnPlayerLeftRoom,OnPlayerLeftRoomEvent);
         leaveButton.onClick.AddListener(() =>
         {
            
@@ -33,6 +35,11 @@ public class RoomMain : MonoBehaviour
     
  
         
+    }
+
+    private void OnPlayerLeftRoomEvent(short eventType)
+    {
+        uiPlayerList.UpdateUI( PhotonNetwork.CurrentRoom.Players.Values.ToList());
     }
 
 

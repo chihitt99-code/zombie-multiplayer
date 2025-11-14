@@ -187,23 +187,9 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         }
         
         Debug.Log($"{PhotonNetwork.CurrentRoom.PlayerCount}");
+        
+        EventDispatcher.instance.SendEvent((int)EventEnums.EventType.OnPlayerLeftRoom);
 
-        /*
-        bool anyMasterClient = PhotonNetwork.CurrentRoom.Players.Values.ToList().Any(x => x.IsMasterClient;
-        Debug.Log(anyMasterClient);
-        // any : ture 와 false 로 반응하는 메서드 
-        // 남아있는 플레이어들 중에 마스터가 있는지를 찾는코드
-
-        if (!anyMasterClient)
-        {
-            Debug.Log(" 이 방에는 마스터 클라이언트가 없습니다. ");
-
-        }
-        else
-        {
-            Debug.Log(" 이 방에는 마스터 클라이언트가 있습니다. ");
-        }
-        */
 
 
 
@@ -217,7 +203,8 @@ public class Pun2Manager : MonoBehaviourPunCallbacks
         Debug.Log($"PhotonNetwork.InLobby: {PhotonNetwork.InRoom}");
         
 
-        //PhotonNetwork.LoadLevel("Lobby");
+        PhotonNetwork.LoadLevel("Lobby");
+        
         //SceneManager.LoadScene("Lobby");
     }
     
